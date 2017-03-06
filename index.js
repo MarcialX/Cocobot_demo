@@ -1,30 +1,25 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const request = require('request');
+var express = require('express');
+var bodyParser = require('body-parser');
+var request = require('request');
 
-const app = express();
+var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const server = app.listen(process.env.PORT || 5000, () => {
-  console.log('Express server listening on port %d in %s mode', server.address().port, app.settings.env);
+  console.log('Servidor express escuchando por el puerto %d en el modo %s', server.address().port, app.settings.env);
 });
 
-// Server frontpage
-//app.get('/', function (req, res) {  
-//    res.send('This is TestBot Server');
-//});
-
-// Facebook Webhook
+// Validación con facebook
 app.get('/', function (req, res) {  
-    if (req.query['hub.verify_token'] === 'cocobot_demo') {
+    if (req.query['hub.verify_token'] === process.env.VERIFY_TOKEN) {
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Invalid verify token');
     }
 });
 
-/* Handling all messenges */
+//Mensajes Recibidos
 app.post('/', (req, res) => {
   console.log(req.body);
   if (req.body.object === 'page') {
@@ -39,13 +34,14 @@ app.post('/', (req, res) => {
   }
 });
 
+//Enviando el mensaje
 function sendMessage(event) {
   let sender = event.sender.id;
   let text = event.message.text;
 
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token: 'EAAOLJzNGtOIBAOkGGsCerpb4vpONgCXMxUbAEKJI42sOUJnY5AqT66oR8HSyiadfYqdUcATfGg5slOZA1R9YoKCmMhiyPUZBzZCb1DyCmnwA8fshYuvU0ZAzzzYGDP63QKo66uOvRZBPH2Ww40nhgzwLav1Bj0TKNwXIEhmyv9wZDZD'},
+    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
     method: 'POST',
     json: {
       recipient: {id: sender},
