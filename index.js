@@ -8,6 +8,7 @@ var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
 var contexts = [];
 
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,12 +49,21 @@ function sendMessage(event) {
 
   //Guardando el contexto de la conversación
   var context = null;
+  //context.flag_film = 0,
+  //  "saber_mas": 0,
+  //  "tolerance": 0,
+  //  "flag_music": 0,
+  //  "about_music": "on",
+  //  "counter_bad_options": 0
   var index = 0;
   var contextIndex = 0;
 
   contexts.forEach(function(value) {
+    console.log("*************************")
     console.log(value.from);
+    console.log("*************************")
     if (value.from == user){
+      console.log(value.context)
       context = value.context;
       contextIndex = index;
     }
