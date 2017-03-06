@@ -58,6 +58,8 @@ function sendMessage(event) {
   context.about_music = 'on';
   context.counter_bad_options = 0;
   
+  aux_counter_bad = counter_bad_options;
+
   var index = 0;
   var contextIndex = 0;
 
@@ -112,11 +114,14 @@ function sendMessage(event) {
           urlImage = "http://mrwgifs.com/wp-content/uploads/2013/07/Ralph-Wiggum-Waves-Hello-On-The-Simpsons.gif";
           sendImage(user,urlImage);
         } else if (intent == "reaccion_negativa" && context.ignore == 'on'){
-          console.log('Esta pasando!');
           urlImage = "http://i1.wp.com/www.sopitas.com/wp-content/uploads/2016/05/homero-3.gif";
           sendImage(user,urlImage);
         } else if (intent == "saludo"){
           urlImage = "http://universitarios.cl/images/i-p25522-7.jpg";
+          sendImage(user,urlImage);
+        } else if (context.counter_bad_options != aux_counter_bad){
+          aux_counter_bad = context.counter_bad_options;
+          urlImage = "https://k60.kn3.net/taringa/5/5/6/7/9/8/vagonettas/BAC.gif";
           sendImage(user,urlImage);
         }
 
