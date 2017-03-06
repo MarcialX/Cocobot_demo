@@ -50,12 +50,12 @@ function sendMessage(event) {
   var context = {};
 
   //Variables de contexto
-  context.flag_film = 0;
-  context.saber_mas =  0;
-  context.tolerance = 0;
-  context.flag_music = 0;
-  context.about_music = 'on';
-  context.counter_bad_options = 0;
+  //context.flag_film = 0;
+  //context.saber_mas =  0;
+  //context.tolerance = 0;
+  //context.flag_music = 0;
+  //context.about_music = 'on';
+  //context.counter_bad_options = 0;
   
   var index = 0;
   var contextIndex = 0;
@@ -81,7 +81,6 @@ function sendMessage(event) {
 
   //Sobre el contexto
   console.log(JSON.stringify(context));
-  console.log(contexts.length);
 
   //Se envía a WATSON el mensaje del usuario
   conversation.message({
@@ -97,6 +96,9 @@ function sendMessage(event) {
           contexts.push({'from': user, 'context': response.context});
         } else{
           contexts[contextIndex].context = response.context;
+          console.log("---------------")
+          console.log(contexts[contextIndex].context)
+          console.log("---------------")
         }
 
         //Verificación de que se ha cumplido cierta intención
