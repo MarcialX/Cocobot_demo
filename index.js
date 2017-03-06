@@ -51,6 +51,7 @@ function sendMessage(event) {
 
   //Variables de contexto
   context.flag_film = 0;
+  context.ignore = 'off';
   context.saber_mas =  0;
   context.tolerance = 0;
   context.flag_music = 0;
@@ -107,8 +108,11 @@ function sendMessage(event) {
           contexts.splice(contextIndex,1);
         }
 
-        if (intent == "saludo"){
+        if (intent == "despedida"){
           urlImage = "http://mrwgifs.com/wp-content/uploads/2013/07/Ralph-Wiggum-Waves-Hello-On-The-Simpsons.gif";
+          sendImage(user,urlImage);
+        } else if (intent == "reaccion_negativa" && context.ignore == 'on'){
+          urlname = "https://i.ytimg.com/vi/DN7n8QddQqw/maxresdefault.jpg";
           sendImage(user,urlImage);
         }
 
