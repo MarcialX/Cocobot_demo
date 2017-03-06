@@ -78,7 +78,8 @@ function sendMessage(event) {
   var conversation = new ConversationV1({
     username: process.env.USER_WATSON,
     password: process.env.PASS_WATSON,
-    version_date: ConversationV1.VERSION_DATE_2017_03_06
+    version: 'v1',
+    version_date: '2017-02-03'
   });
 
   //Sobre el contexto
