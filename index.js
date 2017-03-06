@@ -4,7 +4,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
 //Conversation de WATSON
-var watson = require('watson-developer-cloud');
+var ConversationV1 = require('watson-developer-cloud/conversation/v1');
 
 var contexts = [];
 
@@ -75,11 +75,10 @@ function sendMessage(event) {
   console.log('Mensaje recibido de ' + user + ' diciendo que: ' + text)
 
   //Credenciales de WATSON
-  var conversation = watson.conversation({
+  var conversation = new ConversationV1({
     username: process.env.USER_WATSON,
     password: process.env.PASS_WATSON,
-    version: 'v1',
-    version_date: '2017-02-03'
+    version_date: ConversationV1.VERSION_DATE_2016_09_20
   });
 
   //Sobre el contexto
