@@ -61,9 +61,6 @@ function sendMessage(event) {
   var contextIndex = 0;
 
   contexts.forEach(function(value) {
-    console.log("*************************")
-    console.log(value.from);
-    console.log("*************************")
     if (value.from == user){
       console.log(value.context)
       context = value.context;
