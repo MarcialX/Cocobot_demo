@@ -13,8 +13,8 @@ app.listen((process.env.PORT || 5000));
 //});
 
 // Facebook Webhook
-app.get('/webhook', function (req, res) {  
-    if (req.query['hub.verify_token'] === cocobot_demo) {
+app.get('/', function (req, res) {  
+    if (req.query['hub.verify_token'] === 'cocobot_demo') {
         res.send(req.query['hub.challenge']);
     } else {
         res.send('Invalid verify token');
