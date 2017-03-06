@@ -109,11 +109,11 @@ function sendMessage(event) {
 
         if (intent == "saludo"){
           urlImage = "http://mrwgifs.com/wp-content/uploads/2013/07/Ralph-Wiggum-Waves-Hello-On-The-Simpsons.gif";
-          sendImage(user,urlImage)
+          sendImage(user,urlImage);
         }
 
         //Envío de texto
-        sendText(user,response.output[0].text);
+        sendText(user,response.output.text[0]);
       }
   }); 
 }
