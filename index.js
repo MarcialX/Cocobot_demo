@@ -62,7 +62,6 @@ function sendMessage(event) {
 
   contexts.forEach(function(value) {
     if (value.from == user){
-      console.log(value.context)
       context = value.context;
       contextIndex = index;
     }
@@ -92,14 +91,10 @@ function sendMessage(event) {
         console.error(err);
       } else{
         console.log(response.output.text[0]);
-        console.log(index)
         if (index == 0){
           contexts.push({'from': user, 'context': response.context});
         } else{
           contexts[contextIndex].context = response.context;
-          console.log("---------------")
-          console.log(contexts[contextIndex].context)
-          console.log("---------------")
         }
 
         //Verificación de que se ha cumplido cierta intención
