@@ -112,7 +112,11 @@ function sendMessage(event) {
           urlImage = "http://mrwgifs.com/wp-content/uploads/2013/07/Ralph-Wiggum-Waves-Hello-On-The-Simpsons.gif";
           sendImage(user,urlImage);
         } else if (intent == "reaccion_negativa" && context.ignore == 'on'){
-          urlname = "https://i.ytimg.com/vi/DN7n8QddQqw/maxresdefault.jpg";
+          console.log('Esta pasando!');
+          urlImage = "https://i.ytimg.com/vi/DN7n8QddQqw/maxresdefault.jpg";
+          sendImage(user,urlImage);
+        } else if (intent == "saludo"){
+          urlImage = "http://universitarios.cl/images/i-p25522-7.jpg";
           sendImage(user,urlImage);
         }
 
