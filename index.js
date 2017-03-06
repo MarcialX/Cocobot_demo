@@ -58,7 +58,7 @@ function sendMessage(event) {
   context.about_music = 'on';
   context.counter_bad_options = 0;
   
-  aux_counter_bad = counter_bad_options;
+  aux_counter_bad = context.counter_bad_options;
 
   var index = 0;
   var contextIndex = 0;
