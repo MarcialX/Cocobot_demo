@@ -47,7 +47,7 @@ function sendMessage(event) {
   var text = event.message.text;
 
   //Guardando el contexto de la conversación
-  var context = {};
+  var context = null;
 
   //Variables de contexto
   //context.flag_film = 0;
