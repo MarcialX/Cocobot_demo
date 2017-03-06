@@ -14,7 +14,7 @@ const server = app.listen(process.env.PORT || 5000, () => {
 //});
 
 // Facebook Webhook
-app.get('/', function (req, res) {  
+app.get('/webhook', function (req, res) {  
     if (req.query['hub.verify_token'] === cocobot_demo) {
         res.send(req.query['hub.challenge']);
     } else {
