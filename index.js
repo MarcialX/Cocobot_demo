@@ -1,6 +1,12 @@
+//********************COCONUTT CHATBOT: COCOBOT**************************
+//Servidor Express
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+//Conversation de WATSON
+var ConversationV1 = require('watson-developer-cloud/conversation/v1');
+
+var contexts = [];
 
 var app = express();
 app.use(bodyParser.json());
@@ -25,6 +31,7 @@ app.post('/', (req, res) => {
   if (req.body.object === 'page') {
     req.body.entry.forEach((entry) => {
       entry.messaging.forEach((event) => {
+        //Si existe un mensaje
         if (event.message && event.message.text) {
           sendMessage(event);
         }
@@ -36,22 +43,76 @@ app.post('/', (req, res) => {
 
 //Enviando el mensaje
 function sendMessage(event) {
-  let sender = event.sender.id;
-  let text = event.message.text;
+  var user = event.sender.id;
+  var text = event.message.text;
 
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-    method: 'POST',
-    json: {
-      recipient: {id: sender},
-      message: {text: text}
+  //Guardando el contexto de la conversación
+  var context = null;
+  var index = 0;
+  var contextIndex = 0;
+
+  contexts.forEach(function(value) {
+    console.log(value.from);
+    if (value.from == user){
+      context = value.context;
+      contextIndex = index;
     }
-  }, function (error, response) {
-    if (error) {
-        console.log('Error sending message: ', error);
-    } else if (response.body.error) {
-        console.log('Error: ', response.body.error);
-    }
+    index = index + 1;
   });
+
+  //Mensaje recibido
+  console.log('Mensaje recibido de ' + user + ' diciendo que: ' + text)
+
+  //Credenciales de WATSON
+  var conversation = new ConversationV1({
+    username: process.env.USER_WATSON,
+    password: process.env.PASS_WATSON,
+    version_date: ConversationV1.VERSION_DATE_2016_09_20
+  });
+
+  //Sobre el contexto
+  console.log(JSON.stringify(context));
+  console.log(contexts.length);
+
+  //Se envía a WATSON el mensaje del usuario
+  conversation.message({
+    input: {text: text},
+    workspace_id: process.env.WORKSPACE_ID,
+    context: context
+  },  function(err, response){
+      if (err){
+        console.error(err);
+      } else{
+        console.log(respose.output.text[0]);
+        if (context == null){
+          contexts.push({'from': user, 'context': response.context});
+        } else{
+          contexts[contextIndex].context = response.context;
+        }
+
+        //Verificación de que se ha cumplido cierta intención
+        var intent = respose.intents[0].intent;
+        console.log(intent);
+        if (intent == "done"){
+          contexts.splice(contextIndex,1);
+        }
+
+        //Envío a API de facebook del mensaje
+        request({
+          url: 'https://graph.facebook.com/v2.6/me/messages',
+          qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+          method: 'POST',
+          json: {
+            recipient: {id: user},
+            message: {text: response.output.text[0]}
+          }
+        }, function (error, response) {
+          if (error) {
+            console.log('Error sending message: ', error);
+          } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+          }
+        });
+      }
+  }); 
 }
