@@ -113,7 +113,7 @@ function sendMessage(event) {
           sendImage(user,urlImage);
         } else if (intent == "reaccion_negativa" && context.ignore == 'on'){
           console.log('Esta pasando!');
-          urlImage = "https://i.ytimg.com/vi/DN7n8QddQqw/maxresdefault.jpg";
+          urlImage = "http://i1.wp.com/www.sopitas.com/wp-content/uploads/2016/05/homero-3.gif";
           sendImage(user,urlImage);
         } else if (intent == "saludo"){
           urlImage = "http://universitarios.cl/images/i-p25522-7.jpg";
