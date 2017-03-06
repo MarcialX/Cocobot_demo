@@ -47,15 +47,15 @@ function sendMessage(event) {
   var text = event.message.text;
 
   //Guardando el contexto de la conversación
-  var context = null;
+  var context = {};
 
   //Variables de contexto
-  //context.flag_film = 0;
-  //context.saber_mas =  0;
-  //context.tolerance = 0;
-  //context.flag_music = 0;
-  //context.about_music = 'on';
-  //context.counter_bad_options = 0;
+  context.flag_film = 0;
+  context.saber_mas =  0;
+  context.tolerance = 0;
+  context.flag_music = 0;
+  context.about_music = 'on';
+  context.counter_bad_options = 0;
   
   var index = 0;
   var contextIndex = 0;
@@ -92,7 +92,8 @@ function sendMessage(event) {
         console.error(err);
       } else{
         console.log(response.output.text[0]);
-        if (context == null){
+        console.log(index)
+        if (index == 0){
           contexts.push({'from': user, 'context': response.context});
         } else{
           contexts[contextIndex].context = response.context;
