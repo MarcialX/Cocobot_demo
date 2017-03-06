@@ -1,4 +1,6 @@
 //********************COCONUTT CHATBOT: COCOBOT**************************
+
+'use strict'
 //Servidor Express
 var express = require('express');
 var bodyParser = require('body-parser');
