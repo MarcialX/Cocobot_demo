@@ -119,10 +119,10 @@ function sendMessage(event) {
         } else if (intent == "saludo"){
           urlImage = "http://universitarios.cl/images/i-p25522-7.jpg";
           sendImage(user,urlImage);
-        } else if (context.counter_bad_options != aux_counter_bad){
-          aux_counter_bad = context.counter_bad_options;
-          urlImage = "https://k60.kn3.net/taringa/5/5/6/7/9/8/vagonettas/BAC.gif";
-          sendImage(user,urlImage);
+        //} else if (context.counter_bad_options != aux_counter_bad){
+        //  aux_counter_bad = context.counter_bad_options;
+        //  urlImage = "https://k60.kn3.net/taringa/5/5/6/7/9/8/vagonettas/BAC.gif";
+        //  sendImage(user,urlImage);
         }
 
         //Envío de texto
