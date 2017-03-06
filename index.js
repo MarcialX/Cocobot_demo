@@ -82,11 +82,6 @@ function sendMessage(event) {
     version_date: '2017-02-03'
   });
 
-  var conversation = new ConversationV1({
-
-    version_date: ConversationV1.VERSION_DATE_2016_09_20
-  });
-
   //Sobre el contexto
   console.log(JSON.stringify(context));
 
