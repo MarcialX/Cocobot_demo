@@ -83,7 +83,7 @@ function sendMessage(event) {
       if (err){
         console.error(err);
       } else{
-        console.log(respose.output.text[0]);
+        console.log(response.output.text[0]);
         if (context == null){
           contexts.push({'from': user, 'context': response.context});
         } else{
@@ -91,7 +91,7 @@ function sendMessage(event) {
         }
 
         //Verificación de que se ha cumplido cierta intención
-        var intent = respose.intents[0].intent;
+        var intent = response.intents[0].intent;
         console.log(intent);
         if (intent == "done"){
           contexts.splice(contextIndex,1);
