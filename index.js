@@ -98,28 +98,69 @@ function sendMessage(event) {
         }
 
         //Verificación de que se ha cumplido cierta intención
+        var urlImage = null;
+
         var intent = response.intents[0].intent;
         console.log(intent);
+
         if (intent == "done"){
           contexts.splice(contextIndex,1);
         }
 
-        //Envío a API de facebook del mensaje
-        request({
-          url: 'https://graph.facebook.com/v2.6/me/messages',
-          qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-          method: 'POST',
-          json: {
-            recipient: {id: user},
-            message: {text: response.output.text[0]}
-          }
-        }, function (error, response) {
-          if (error) {
-            console.log('Error sending message: ', error);
-          } else if (response.body.error) {
-            console.log('Error: ', response.body.error);
-          }
-        });
+        if (intent == "saludo"){
+          urlImage = "http://mrwgifs.com/wp-content/uploads/2013/07/Ralph-Wiggum-Waves-Hello-On-The-Simpsons.gif";
+          sendImage(user,urlImage)
+        }
+
+        //Envío de texto
+        sendText(user,response.output[0].text);
       }
   }); 
+}
+
+//Enviando texto
+function sendText(user,text){
+  //Envío a API de facebook del mensaje
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+    method: 'POST',
+    json: {
+      recipient: {id: user},
+      message: {text: text}
+    }
+  }, function (error, response) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
+}
+
+//Enviando imagenes
+function sendImage(user,urlImage){
+  //Envío a API de facebook del mensaje
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+    method: 'POST',
+    json: {
+      recipient: {id: user},
+      message: {
+        attachment: {
+          type: "image",
+          payload: {
+            url:urlImage
+          }
+        }
+      }
+    }
+  }, function (error, response) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
 }
