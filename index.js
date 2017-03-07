@@ -94,7 +94,7 @@ function sendMessage(event) {
         console.error(err);
       } else{
         console.log(response.output.text[0]);
-        if (cotext == null){
+        if (context == null){
           contexts.push({'from': user, 'context': response.context});
         } else{
           contexts[contextIndex].context = response.context;
