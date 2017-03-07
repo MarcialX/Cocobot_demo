@@ -96,6 +96,7 @@ function sendMessage(event) {
         console.log(response.output.text[0]);
         if (context == null){
           contexts.push({'from': user, 'context': response.context});
+          context.saludo_inicial = "on";
         } else{
           contexts[contextIndex].context = response.context;
         }
@@ -110,7 +111,9 @@ function sendMessage(event) {
           contexts.splice(contextIndex,1);
         }
 
+        console.log("---------------")
         console.log(context)
+        console.log("---------------")
 
         if (intent == "despedida"){
           urlImage = "http://mrwgifs.com/wp-content/uploads/2013/07/Ralph-Wiggum-Waves-Hello-On-The-Simpsons.gif";
