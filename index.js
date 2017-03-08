@@ -110,10 +110,6 @@ function sendMessage(event) {
           contexts.splice(contextIndex,1);
         }
 
-        console.log("---------------")
-        console.log(context)
-        console.log("---------------")
-
         if (intent == "despedida"){
           urlImage = "http://mrwgifs.com/wp-content/uploads/2013/07/Ralph-Wiggum-Waves-Hello-On-The-Simpsons.gif";
           sendImage(user,urlImage);
